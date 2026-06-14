@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercice Interactif : Coupe du Monde 2026 (Tibétain)</title>
+    <style>
+        :root {
+            --primary-color: #1b5e20;
+            --secondary-color: #f57f17;
+            --bg-color: #f4f6f9;
+            --card-bg: #ffffff;
+            --text-color: #333333;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            max-width: 800px;
+        }
+
+        h1 {
+            color: var(--primary-color);
+            margin-bottom: 5px;
+            font-size: 2rem;
+        }
+
+        .tibetan-title {
+            font-family: 'Noto Sans Tibetan', 'Kokonor', 'Microsoft Himalaya', serif;
+            font-size: 1.8rem;
+            color: #222;
+            margin-top: 5px;
+        }
+
+        .description {
+            color: #666;
+            font-style: italic;
+        }
+
+        /* Navigation des groupes */
+        .group-nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
+            max-width: 800px;
+            margin-bottom: 25px;
+        }
+
+        .group-btn {
+            background-color: #e0e0e0;
+            border: none;
+            padding: 10px 16px;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .group-btn:hover {
+            background-color: #bdbdbd;
+        }
+
+        .group-btn.active {
+            background-color: var(--primary-color);
+            color: white;
+            box-shadow: 0 4px 10px rgba(27, 94, 32, 0.3);
+        }
+
+        /* Zone de jeu */
+        .quiz-container {
+            background: var(--card-bg);
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            padding: 30px;
+            width: 100%;
+            max-width: 650px;
+            box-sizing: border-box;
+        }
+
+        .group-title {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            border-bottom: 2px solid #e0e0e0;
+            padding-bottom: 10px;
+            margin-top: 0;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        /* Liste des questions */
+        .match-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .match-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #fafafa;
+            border: 1px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 12px 20px;
+            transition: all 0.3s ease;
+        }
+
+        .tibetan-name {
+            font-family: 'Noto Sans Tibetan', 'Kokonor', 'Microsoft Himalaya', serif;
+            font-size: 1.4rem;
+            font-weight: 500;
+        }
+
+        .drop-zone {
+            width: 64px;
+            height: 48px;
+            border: 2px dashed #b0bec5;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            background: #fff;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            user-select: none;
+            overflow: hidden;
+        }
+
+        .drop-zone:hover {
+            border-color: var(--primary-color);
+            background: #f1f8e9;
+        }
+
+        .drop-zone.filled {
+            border-style: solid;
+            border-color: #cbd5e1;
+            background: #f8fafc;
+        }
+
+        /* Images des drapeaux */
+        .flag-img {
+            width: 48px;
+            height: 32px;
+            object-fit: cover;
+            border-radius: 4px;
+            border: 1px solid #e0e0e0;
+            display: block;
+            pointer-events: none;
+        }
+
+        /* Banque de drapeaux */
+        .flag-bank {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 30px;
+            min-height: 60px;
+            align-items: center;
+            background: #f8fafc;
+            padding: 10px;
+            border-radius: 10px;
+            border: 1px dashed #cbd5e1;
+        }
+
+        .flag-item {
+            cursor: pointer;
+            transition: transform 0.2s, opacity 0.2s;
+            user-select: none;
+            padding: 4px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .flag-item:hover {
+            transform: scale(1.15);
+        }
+
+        .flag-item.selected {
+            outline: 3px solid var(--secondary-color);
+            background-color: #fffde7;
+            transform: scale(1.1);
+        }
+
+        .flag-item.placed {
+            opacity: 0.3;
+            pointer-events: none;
+        }
+
+        /* Actions */
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .btn {
+            flex: 1;
+            border: none;
+            padding: 14px;
+            font-size: 1rem;
+            font-weight: bold;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .btn-check {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .btn-check:hover {
+            background-color: #144517;
+        }
+
+        .btn-reset {
+            background-color: #cfd8dc;
+            color: #37474f;
+        }
+
+        .btn-reset:hover {
+            background-color: #b0bec5;
+        }
+
+        /* Validation du statut */
+        .match-row.correct {
+            border-color: #4caf50;
+            background-color: #e8f5e9;
+        }
+
+        .match-row.incorrect {
+            border-color: #f44336;
+            background-color: #ffebee;
+        }
+
+        .feedback {
+            text-align: center;
+            font-weight: bold;
+            margin-top: 15px;
+            min-height: 20px;
+        }
+        
+        .feedback.success { color: #2e7d32; }
+        .feedback.error { color: #c62828; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Coupe du Monde de Football 2026</h1>
+        <div class="tibetan-title">༢༠༢༦ལོའི་མེ་ཀེ་མོའི་འཛམ་གླིང་རྐང་གྲུག་འགྲན་བསྡུར་གྱི་ཚོགས་ཆུང་འགྲན་སྐོར།</div>
+        <p class="description">Consigne : Cliquez sur un drapeau, puis cliquez sur la case vide à côté de son nom en tibétain pour l'associer.</p>
+    </header>
+
+    <div class="group-nav" id="groupNav"></div>
+
+    <div class="quiz-container">
+        <div class="group-title" id="currentGroupTitle">Groupe A</div>
+        
+        <div class="match-list" id="matchList"></div>
+
+        <div style="text-align: center; margin-bottom: 8px; font-size: 0.9rem; color: #666;">Banque de drapeaux :</div>
+        <div class="flag-bank" id="flagBank"></div>
+
+        <div class="action-buttons">
+            <button class="btn btn-reset" onclick="resetCurrentGroup()">Réinitialiser</button>
+            <button class="btn btn-check" onclick="checkAnswers()">Vérifier les réponses</button>
+        </div>
+
+        <div class="feedback" id="feedbackMessage"></div>
+    </div>
+
+    <script>
+        // Base de données : chaque pays a son nom tibétain, français
+        // et son code ISO (utilisé pour générer l'image du drapeau via flagcdn.com)
+        const worldCupData = {
+            "A": [
+                { tibetan: "མེག་སི་ཁོ།", french: "Mexique", code: "mx" },
+                { tibetan: "ལྷོ་ཧྥི།", french: "Afrique du Sud", code: "za" },
+                { tibetan: "ལྷོ་ཁོ་རི་ཡ།", french: "Corée du Sud", code: "kr" },
+                { tibetan: "ཆེ་ཁི", french: "République tchèque", code: "cz" }
+            ],
+            "B": [
+                { tibetan: "ཁེ་ན་ཏ།", french: "Canada", code: "ca" },
+                { tibetan: "ཙུར་ཙེར།", french: "Suisse", code: "ch" },
+                { tibetan: "ཁ་ཐར།", french: "Qatar", code: "qa" },
+                { tibetan: "བྷོ་ཧེར།", french: "Bosnie", code: "ba" }
+            ],
+            "C": [
+                { tibetan: "བྷོ་རོ་ཟི།", french: "Brésil", code: "br" },
+                { tibetan: "མོ་རོ་ཁོ།", french: "Maroc", code: "ma" },
+                { tibetan: "སེ་གེ་ལིན་ཐེ།", french: "Serbie", code: "rs" },
+                { tibetan: "ཧི་ཐི།", french: "Haïti", code: "ht" }
+            ],
+            "D": [
+                { tibetan: "ཨ་མི་རི་ཁ།", french: "États-Unis", code: "us" },
+                { tibetan: "ཕ་ར་གུ་བྷེ།", french: "Paraguay", code: "py" },
+                { tibetan: "ཨོ་སི་ཐྲི་ལི་ཡ།", french: "Australie", code: "au" },
+                { tibetan: "ཏུར་ཁེ།", french: "Turquie", code: "tr" }
+            ],
+            "E": [
+                { tibetan: "འཇར་མན།", french: "Allemagne", code: "de" },
+                { tibetan: "ཨ་ཁོ་དོར།", french: "Équateur", code: "ec" },
+                { tibetan: "ཝུ་ནེ་ཟུ་ཝེ་ལ།", french: "Venezuela", code: "ve" },
+                { tibetan: "ཁེ་ཐེ་ཝེར།", french: "Côte d’Ivoire", code: "ci" }
+            ],
+            "F": [
+                { tibetan: "ཧོ་ལེན།", french: "Pays-Bas", code: "nl" },
+                { tibetan: "ཉི་ཧོང་།", french: "Japon", code: "jp" },
+                { tibetan: "ཐུ་ཉི་ཞི་ཡ།", french: "Tunisie", code: "tn" },
+                { tibetan: "སུར་ཝེས་དེན།", french: "Suède", code: "se" }
+            ],
+            "G": [
+                { tibetan: "བྷེར་ཇམ།", french: "Belgique", code: "be" },
+                { tibetan: "ཨི་ཇོ་ཐི།", french: "Égypte", code: "eg" },
+                { tibetan: "ཏ་ཟིག", french: "Tadjikistan", code: "tj" },
+                { tibetan: "ནིའུ་ཟི་ལན།", french: "Nouvelle-Zélande", code: "nz" }
+            ],
+            "H": [
+                { tibetan: "སེ་ཕེན​།", french: "Espagne", code: "es" },
+                { tibetan: "ཡུ་རུ་གྷེ།", french: "Uruguay", code: "uy" },
+                { tibetan: "ཚ་ཐུ་ཨ་རབ།", french: "Arabie saoudite", code: "sa" },
+                { tibetan: "ཁེབ་བྷེ་རིལ།", french: "Cap-Vert", code: "cv" }
+            ],
+            "I": [
+                { tibetan: "ཧྭ་རན་སི།", french: "France", code: "fr" },
+                { tibetan: "ས་ནི་གལ།", french: "Sénégal", code: "sn" },
+                { tibetan: "ཨི་རག", french: "Irak", code: "iq" },
+                { tibetan: "ནོ་བྷེར།", french: "Norvège", code: "no" }
+            ],
+            "J": [
+                { tibetan: "ཨ་གིན་ཐིན།", french: "Argentine", code: "ar" },
+                { tibetan: "ཨ་ཇིར་ཡ།", french: "Algérie", code: "dz" },
+                { tibetan: "ཨོ་སོ་ཐྲི་ཡ།", french: "Autriche", code: "at" },
+                { tibetan: "ཇོར་དན།", french: "Jordanie", code: "jo" }
+            ],
+            "K": [
+                { tibetan: "ཕུར་ཐི་གལ།", french: "Portugal", code: "pt" },
+                { tibetan: "ཁོ་ལོམ་ཕི་ཡ།", french: "Colombie", code: "co" },
+                { tibetan: "ཁང་གོ།", french: "Congo", code: "cg" },
+                { tibetan: "ཨུ་ཟུ་བྷེ་ཁེ་སི་ཐན།", french: "Ouzbékistan", code: "uz" }
+            ],
+            "L": [
+                { tibetan: "དབྱིན་ཀི་ལིན།", french: "Angleterre", code: "gb-eng" },
+                { tibetan: "ཁ་རོ་ཤེ་ཡ།", french: "Croatie", code: "hr" },
+                { tibetan: "ཕ་ན་མ།", french: "Panama", code: "pa" },
+                { tibetan: "ཀཱ་ན།", french: "Ghana", code: "gh" }
+            ]
+        };
+
+        // Construit l'URL de l'image du drapeau à partir du code pays (flagcdn.com, format PNG)
+        function flagUrl(code) {
+            return `https://flagcdn.com/w80/${code}.png`;
+        }
+
+        let currentGroup = "A";
+        let selectedFlag = null;
+        let selectedFlagElement = null;
+        let currentAnswers = {}; 
+
+        function shuffle(array) {
+            let currentIndex = array.length, randomIndex;
+            while (currentIndex != 0) {
+                randomIndex = Math.floor(Math.random() * currentIndex);
+                currentIndex--;
+                [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
+            }
+            return array;
+        }
+
+        function initNav() {
+            const nav = document.getElementById("groupNav");
+            Object.keys(worldCupData).forEach(group => {
+                const btn = document.createElement("button");
+                btn.className = `group-btn ${group === currentGroup ? 'active' : ''}`;
+                btn.textContent = `Groupe ${group}`;
+                btn.onclick = () => switchGroup(group);
+                nav.appendChild(btn);
+            });
+        }
+
+        function switchGroup(groupKey) {
+            currentGroup = groupKey;
+            document.querySelectorAll(".group-btn").forEach(btn => {
+                btn.classList.remove("active");
+                if(btn.textContent === `Groupe ${groupKey}`) btn.classList.add("active");
+            });
+            document.getElementById("currentGroupTitle").textContent = `Groupe ${groupKey} / སྡེ་ཁག་ ${groupKey}`;
+            resetCurrentGroup();
+        }
+
+        function loadGroup() {
+            const items = worldCupData[currentGroup];
+            const matchList = document.getElementById("matchList");
+            const flagBank = document.getElementById("flagBank");
+            
+            matchList.innerHTML = "";
+            flagBank.innerHTML = "";
+            document.getElementById("feedbackMessage").className = "feedback";
+            document.getElementById("feedbackMessage").textContent = "";
+            
+            selectedFlag = null;
+            selectedFlagElement = null;
+            currentAnswers = {};
+
+            items.forEach((item, index) => {
+                currentAnswers[item.tibetan] = "";
+
+                const row = document.createElement("div");
+                row.className = "match-row";
+                row.id = `row-${index}`;
+                row.setAttribute("data-tibetan", item.tibetan);
+
+                const label = document.createElement("div");
+                label.className = "tibetan-name";
+                label.textContent = `${index + 1}. ${item.tibetan}`;
+
+                const dropZone = document.createElement("div");
+                dropZone.className = "drop-zone";
+                dropZone.id = `drop-${index}`;
+                dropZone.onclick = () => handleDropZoneClick(dropZone, item.tibetan);
+
+                row.appendChild(label);
+                row.appendChild(dropZone);
+                matchList.appendChild(row);
+            });
+
+            // On mélange les codes pays (et non plus les emojis) pour la banque
+            const codes = items.map(item => item.code);
+            shuffle(codes);
+
+            codes.forEach(code => {
+                const flagEl = document.createElement("div");
+                flagEl.className = "flag-item";
+
+                const img = document.createElement("img");
+                img.className = "flag-img";
+                img.src = flagUrl(code);
+                img.alt = code.toUpperCase();
+                img.draggable = false;
+
+                flagEl.appendChild(img);
+                flagEl.setAttribute("data-flag", code);
+                flagEl.onclick = () => handleFlagClick(flagEl, code);
+                flagBank.appendChild(flagEl);
+            });
+        }
+
+        function handleFlagClick(element, flagCode) {
+            if(element.classList.contains("placed")) return;
+
+            if (selectedFlagElement) {
+                selectedFlagElement.classList.remove("selected");
+            }
+
+            if (selectedFlag === flagCode) {
+                selectedFlag = null;
+                selectedFlagElement = null;
+            } else {
+                selectedFlag = flagCode;
+                selectedFlagElement = element;
+                element.classList.add("selected");
+            }
+        }
+
+        function handleDropZoneClick(zoneElement, tibetanKey) {
+            const previousFlag = currentAnswers[tibetanKey];
+
+            // Retirer un drapeau déjà placé
+            if (!selectedFlag && previousFlag) {
+                const bankItem = Array.from(document.getElementById("flagBank").children)
+                                      .find(item => item.getAttribute("data-flag") === previousFlag);
+                if(bankItem) bankItem.classList.remove("placed");
+                
+                zoneElement.innerHTML = "";
+                zoneElement.classList.remove("filled");
+                currentAnswers[tibetanKey] = "";
+                return;
+            }
+
+            // Assigner un drapeau sélectionné
+            if (selectedFlag) {
+                if (previousFlag) {
+                    const oldBankItem = Array.from(document.getElementById("flagBank").children)
+                                             .find(item => item.getAttribute("data-flag") === previousFlag);
+                    if(oldBankItem) oldBankItem.classList.remove("placed");
+                }
+
+                // On crée une image dans la case (au lieu d'innerHTML brut)
+                const img = document.createElement("img");
+                img.className = "flag-img";
+                img.src = flagUrl(selectedFlag);
+                img.alt = selectedFlag.toUpperCase();
+
+                zoneElement.innerHTML = "";
+                zoneElement.appendChild(img);
+                zoneElement.classList.add("filled");
+                currentAnswers[tibetanKey] = selectedFlag;
+
+                selectedFlagElement.classList.remove("selected");
+                selectedFlagElement.classList.add("placed");
+
+                selectedFlag = null;
+                selectedFlagElement = null;
+            }
+        }
+
+        function checkAnswers() {
+            const items = worldCupData[currentGroup];
+            let allCorrect = true;
+            let missingAnswers = false;
+
+            items.forEach((item) => {
+                const userChoice = currentAnswers[item.tibetan];
+                if (!userChoice) {
+                    missingAnswers = true;
+                }
+            });
+
+            if (missingAnswers) {
+                const fb = document.getElementById("feedbackMessage");
+                fb.textContent = "Veuillez associer tous les drapeaux avant de vérifier !";
+                fb.className = "feedback error";
+                return;
+            }
+
+            items.forEach((item, index) => {
+                const row = document.getElementById(`row-${index}`);
+                const userChoice = currentAnswers[item.tibetan];
+
+                if (userChoice === item.code) {
+                    row.classList.remove("incorrect");
+                    row.classList.add("correct");
+                } else {
+                    row.classList.remove("correct");
+                    row.classList.add("incorrect");
+                    allCorrect = false;
+                }
+            });
+
+            const fb = document.getElementById("feedbackMessage");
+            if (allCorrect) {
+                fb.textContent = `Bravo ! Toutes les réponses pour le Groupe ${currentGroup} sont correctes ! 🎉`;
+                fb.className = "feedback success";
+            } else {
+                fb.textContent = "Certaines associations sont incorrectes. Réessayez !";
+                fb.className = "feedback error";
+            }
+        }
+
+        function resetCurrentGroup() {
+            loadGroup();
+        }
+
+        window.onload = () => {
+            initNav();
+            loadGroup();
+        };
+    </script>
+</body>
+</html>
