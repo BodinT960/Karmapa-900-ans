@@ -1,40 +1,136 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quiz tibétain</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            background: #f5f5f5;
-        }
+<title>Karmapa 900 ans</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Marcellus&family=Noto+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #14100a;
+    --bg-elev: #1d160d;
+    --ink: #f3ead2;
+    --ink-dim: #cdbfa0;
+    --line: #3a2f1c;
+    --accent: #c9a227;
+    --accent2: #e7c458;
+    --done: #6f8f6a;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:'Noto Sans', sans-serif;
+    padding: 0 20px;
+  }
+  .wrap{ max-width:760px; margin:0 auto; padding-block: 56px 80px; }
 
-        a {
-            padding: 20px 40px;
-            background: #1b5e20;
-            color: white;
-            text-decoration: none;
-            border-radius: 10px;
-            font-size: 1.2rem;
-            font-weight: bold;
-        }
+  header{ margin-bottom:48px; }
+  .eyebrow{
+    font-family:'Marcellus', serif; font-size:13px; letter-spacing:.32em; text-transform:uppercase;
+    color:var(--accent2); margin-bottom:16px;
+  }
+  h1{
+    font-family:'Cormorant Garamond', serif; font-weight:600; font-size:clamp(34px,6vw,52px);
+    line-height:1.08; margin:0 0 16px; text-wrap:balance;
+  }
+  .lede{ color:var(--ink-dim); font-size:16px; line-height:1.6; max-width:58ch; }
+  .lede b{ color:var(--ink); font-weight:600; }
 
-        a:hover {
-            background: #144517;
-        }
-    </style>
-</head>
-<body>
+  .rule{ height:1px; background:linear-gradient(90deg, var(--accent) 0%, transparent 70%); margin:40px 0 28px; opacity:.5; }
 
-    <a href="quiz_tibetain_world_cup.html">
-        Quiz tibétain – Coupe du Monde 2026
-    </a>
+  .list{ display:flex; flex-direction:column; gap:2px; }
+  .row{
+    display:grid; grid-template-columns:auto 1fr auto; gap:18px; align-items:center;
+    padding:18px 16px; border-radius:10px; background:var(--bg-elev);
+    border:1px solid var(--line);
+  }
+  .row + .row{ margin-top:8px; }
+  .num{
+    font-family:'Cormorant Garamond', serif; font-size:28px; color:var(--ink-dim);
+    width:2.1em; text-align:center; font-variant-numeric:tabular-nums;
+  }
+  .row.ready .num{ color:var(--dot); }
+  .dot{
+    display:inline-block; width:8px; height:8px; border-radius:50%; margin-right:10px;
+    background:var(--dot); flex:none;
+  }
+  .meta{ min-width:0; }
+  .title{ font-family:'Cormorant Garamond', serif; font-weight:600; font-size:20px; line-height:1.25; }
+  .status{ font-size:12.5px; color:var(--ink-dim); margin-top:5px; letter-spacing:.02em; }
+  .status.ready{ color:var(--done); }
+  .links{ display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end; }
+  .links a{
+    font-family:'Marcellus', serif; font-size:12px; letter-spacing:.08em; text-transform:uppercase;
+    color:var(--ink); text-decoration:none; border:1px solid var(--line); border-radius:999px;
+    padding:7px 14px; white-space:nowrap; transition:border-color .2s, color .2s;
+  }
+  .links a:hover{ border-color:var(--accent2); color:var(--accent2); }
+  .links a.disabled{ opacity:.35; pointer-events:none; }
 
-</body>
-</html>
+  footer{ margin-top:52px; color:var(--ink-dim); font-size:13px; line-height:1.7; }
+  footer a{ color:var(--accent2); }
+
+  @media (max-width:520px){
+    .row{ grid-template-columns:auto 1fr; }
+    .links{ grid-column:1/-1; justify-content:flex-start; margin-top:4px; }
+  }
+
+  @media (prefers-color-scheme: light){
+    :root:not([data-theme="dark"]){
+      --bg:#faf6ec; --bg-elev:#fff; --ink:#241d10; --ink-dim:#6b5e42; --line:#e4dcc4;
+    }
+  }
+  :root[data-theme="light"]{
+    --bg:#faf6ec; --bg-elev:#fff; --ink:#241d10; --ink-dim:#6b5e42; --line:#e4dcc4;
+  }
+</style>
+
+<div class="wrap">
+  <header>
+    <div class="eyebrow">Karmapa · 900 ans</div>
+    <h1>Le fleuve d'une lignée, en dix jours</h1>
+    <p class="lede">Dix animations quotidiennes, d'après l'ouvrage <b>Karmapa: 900 ans</b> (2ᵉ édition française), retraçant l'histoire du bouddhisme depuis le Bouddha jusqu'à Sa Sainteté le XVI<sup>e</sup> Gyalwang Karmapa. Chaque jour : une animation HTML (16:9, prête à enregistrer) et son script voix off.</p>
+  </header>
+
+  <div class="rule"></div>
+
+  <div class="list" id="list"></div>
+
+  <footer>
+    Chaque animation est une page autonome, plein écran, à lire dans le navigateur — clic pour lire/pause, minutage et sous-titres synchronisés.<br>
+    Série publiée automatiquement, un jour à la fois.
+  </footer>
+</div>
+
+<script>
+const DAYS = [
+  {n:1, title:"La vie du Bouddha", file:"jour-01-la-vie-du-bouddha", date:"16 sept.", dot:"#d97a2b"},
+  {n:2, title:"Le bouddhisme en Inde", file:"jour-02-le-bouddhisme-en-inde", date:"17 sept.", dot:"#e0592a"},
+  {n:3, title:"Le bouddhisme au Tibet", file:"jour-03-le-bouddhisme-au-tibet", date:"18 sept.", dot:"#7fb3d5"},
+  {n:4, title:"La lignée Marpa Kagyu", file:"jour-04-la-lignee-marpa-kagyu", date:"19 sept.", dot:"#a83246"},
+  {n:5, title:"Marpa Lotsāwa (1012-1097)", file:"jour-05-marpa-lotsawa-1012-1097", date:"20 sept.", dot:"#c9a227"},
+  {n:6, title:"Jètsun Milarépa (1028-1123)", file:"jour-06-jetsun-milarepa-1028-1123", date:"21 sept.", dot:"#8c7bd6"},
+  {n:7, title:"Le Seigneur Gampopa (1079-1153)", file:"jour-07-le-seigneur-gampopa-1079-1153", date:"22 sept.", dot:"#a83246"},
+  {n:8, title:"Le Ier Karmapa, Dusoum Khyènpa (1110-1193)", file:"jour-08-le-ier-karmapa-dusoum-khyenpa-1110-1193", date:"23 sept.", dot:"#d4af37"},
+  {n:9, title:"Du IIe au XVe Karmapa", file:"jour-09-du-iie-au-xve-karmapa", date:"24 sept.", dot:"#c9a227"},
+  {n:10, title:"Sa Sainteté le XVIe Karmapa (1924-1981)", file:"jour-10-sa-saintete-le-xvie-karmapa-1924-1981", date:"25 sept.", dot:"#d4af37"},
+];
+
+const list = document.getElementById('list');
+DAYS.forEach(d=>{
+  const row = document.createElement('div');
+  row.className = 'row ready';
+  row.style.setProperty('--dot', d.dot);
+  row.innerHTML = `
+    <div class="num">${String(d.n).padStart(2,'0')}</div>
+    <div class="meta">
+      <div class="title"><span class="dot"></span>${d.title}</div>
+      <div class="status ready">Publié le ${d.date}</div>
+    </div>
+    <div class="links">
+      <a href="${d.file}.html" target="_blank" rel="noopener">Animation</a>
+      <a href="${d.file}-voix-off.txt" target="_blank" rel="noopener">Script</a>
+    </div>`;
+  list.appendChild(row);
+});
+</script>
