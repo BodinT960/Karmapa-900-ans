@@ -192,7 +192,7 @@
   }
 
   .skip-hint{
-    position:absolute; bottom:16px; left:0; right:0; text-align:center;
+    position:absolute; bottom:84px; left:0; right:0; text-align:center;
     font-size:11px; letter-spacing:.08em; color:var(--ink); opacity:0; transition:opacity .4s;
   }
   .stage:hover .skip-hint{ opacity:.4; }
@@ -237,7 +237,7 @@
 </head>
 <body>
 <div class="stage" id="stage" title="Cliquer pour rejouer / mettre en pause">
-  <audio id="voice" src="assets/jour-01-la-vie-du-bouddha.mp3" preload="auto"></audio>
+  <audio id="voice" src="jour-01-la-vie-du-bouddha.mp3" preload="auto"></audio>
   <div class="bg-layer"></div>
   <div class="photo-layer" style="background-image:url('assets/sunset-sky.jpg'); animation: fadeD1I0 82.49s linear infinite, kenburnsPhotoA 111.37s ease-in-out infinite alternate;"></div>
 <div class="photo-layer" style="background-image:url('assets/inde-mahabodhi-bodhgaya.jpg'); animation: fadeD1I1 82.49s linear infinite, kenburnsPhotoB 111.37s ease-in-out infinite alternate;"></div>
@@ -299,17 +299,17 @@
     <div class="title-sub">Karmapa 900 ans — série d'animations quotidiennes</div>
   </div>
 
-  <div class="captions" id="captions"><div class="cap" id="cap-0"><span class="mark">✦</span> Six siècles avant notre ère, dans le nord de l'Inde, naît un prince promis à un destin double : souverain glorieux, ou éveillé.</div>
+  <div class="captions" id="captions"><div class="cap" id="cap-0"><span class="mark">✦</span> Six siècles avant notre ère, dans le nord de l'Inde, naît un prince promis à un destin double, souverain glorieux, ou éveillé.</div>
 <div class="cap" id="cap-1"><span class="mark">✦</span> Élevé dans le luxe du palais, Siddhartha Gautama découvre un jour ce que son père avait voulu lui cacher : la vieillesse, la maladie, la mort.</div>
-<div class="cap" id="cap-2"><span class="mark">✦</span> Une nuit, il quitte tout — trône, épouse, richesses — pour partir chercher la fin de la souffrance.</div>
+<div class="cap" id="cap-2"><span class="mark">✦</span> Une nuit, il quitte tout — trône, épouse, richesse — pour partir chercher la fin de la souffrance.</div>
 <div class="cap" id="cap-3"><span class="mark">✦</span> Six années d'ascèse extrême le mènent au bord de la mort, sans réponse.</div>
 <div class="cap" id="cap-4"><span class="mark">✦</span> Il comprend alors qu'il existe une voie médiane.</div>
-<div class="cap" id="cap-5"><span class="mark">✦</span> Assis sous l'Arbre de la Bodhi, à Bodhgaya, il fait le vœu de ne pas se relever avant d'avoir trouvé la vérité.</div>
-<div class="cap" id="cap-6"><span class="mark">✦</span> À l'aube, il s'éveille : il devient le Bouddha.</div>
+<div class="cap" id="cap-5"><span class="mark">✦</span> Assis sous l'arbre de la Bodhi, à Bodhgaya, il fait le vœu de ne pas se relever avant d'avoir trouvé la vérité.</div>
+<div class="cap" id="cap-6"><span class="mark">✦</span> À l'aube, il s'éveille, il devient le Bouddha.</div>
 <div class="cap" id="cap-7"><span class="mark">✦</span> À Sarnath, il met en mouvement la roue du dharma et enseigne les Quatre Nobles Vérités à ses cinq premiers disciples.</div>
 <div class="cap" id="cap-8"><span class="mark">✦</span> Pendant quarante-cinq ans, il parcourt l'Inde et enseigne à tous, sans distinction de caste ni de sexe.</div>
 <div class="cap" id="cap-9"><span class="mark">✦</span> À sa mort, ses reliques sont partagées entre huit stoupas.</div>
-<div class="cap" id="cap-10"><span class="mark">✦</span> Son enseignement, lui, continue de voyager — vers le Tibet, où il irriguera, neuf siècles plus tard, la lignée des Karmapas.</div></div>
+<div class="cap" id="cap-10"><span class="mark">✦</span> Son enseignement, lui, continue de voyager — vers le Tibet, où il irriguera neuf siècles plus tard la lignée des Karmapas.</div></div>
 
   <div class="end-card" id="endCard">
     <div class="end-eyebrow">KARMAPA · 900 ANS</div>
@@ -326,7 +326,19 @@
 </div>
 
 <script>
-const DATA = {"day": 1, "dayTotal": 10, "titleEnd": 3.0, "cues": [{"start": 3.0, "end": 12.12, "text": "Six siècles avant notre ère, dans le nord de l'Inde, naît un prince promis à un destin double : souverain glorieux, ou éveillé."}, {"start": 12.12, "end": 22.41, "text": "Élevé dans le luxe du palais, Siddhartha Gautama découvre un jour ce que son père avait voulu lui cacher : la vieillesse, la maladie, la mort."}, {"start": 22.41, "end": 29.6, "text": "Une nuit, il quitte tout — trône, épouse, richesses — pour partir chercher la fin de la souffrance."}, {"start": 29.6, "end": 34.85, "text": "Six années d'ascèse extrême le mènent au bord de la mort, sans réponse."}, {"start": 34.85, "end": 38.16, "text": "Il comprend alors qu'il existe une voie médiane."}, {"start": 38.16, "end": 46.9, "text": "Assis sous l'Arbre de la Bodhi, à Bodhgaya, il fait le vœu de ne pas se relever avant d'avoir trouvé la vérité."}, {"start": 46.9, "end": 50.6, "text": "À l'aube, il s'éveille : il devient le Bouddha."}, {"start": 50.6, "end": 58.95, "text": "À Sarnath, il met en mouvement la roue du dharma et enseigne les Quatre Nobles Vérités à ses cinq premiers disciples."}, {"start": 58.95, "end": 65.75, "text": "Pendant quarante-cinq ans, il parcourt l'Inde et enseigne à tous, sans distinction de caste ni de sexe."}, {"start": 65.75, "end": 69.85, "text": "À sa mort, ses reliques sont partagées entre huit stoupas."}, {"start": 69.85, "end": 78.19, "text": "Son enseignement, lui, continue de voyager — vers le Tibet, où il irriguera, neuf siècles plus tard, la lignée des Karmapas."}], "capsEnd": 78.49, "total": 82.49};
+const DATA = {"day": 1, "dayTotal": 10, "titleEnd": 1.423, "cues": [
+{"start": 1.423, "end": 8.547, "text": "Six siècles avant notre ère, dans le nord de l'Inde, naît un prince promis à un destin double, souverain glorieux, ou éveillé."},
+{"start": 9.076, "end": 17.959, "text": "Élevé dans le luxe du palais, Siddhartha Gautama découvre un jour ce que son père avait voulu lui cacher : la vieillesse, la maladie, la mort."},
+{"start": 18.502, "end": 25.517, "text": "Une nuit, il quitte tout — trône, épouse, richesse — pour partir chercher la fin de la souffrance."},
+{"start": 25.789, "end": 30.507, "text": "Six années d'ascèse extrême le mènent au bord de la mort, sans réponse."},
+{"start": 31.621, "end": 33.467, "text": "Il comprend alors qu'il existe une voie médiane."},
+{"start": 33.834, "end": 40.969, "text": "Assis sous l'arbre de la Bodhi, à Bodhgaya, il fait le vœu de ne pas se relever avant d'avoir trouvé la vérité."},
+{"start": 41.697, "end": 44.647, "text": "À l'aube, il s'éveille, il devient le Bouddha."},
+{"start": 45.012, "end": 56.007, "text": "À Sarnath, il met en mouvement la roue du dharma et enseigne les Quatre Nobles Vérités à ses cinq premiers disciples."},
+{"start": 56.504, "end": 68.158, "text": "Pendant quarante-cinq ans, il parcourt l'Inde et enseigne à tous, sans distinction de caste ni de sexe."},
+{"start": 68.679, "end": 72.460, "text": "À sa mort, ses reliques sont partagées entre huit stoupas."},
+{"start": 72.952, "end": 80.827, "text": "Son enseignement, lui, continue de voyager — vers le Tibet, où il irriguera neuf siècles plus tard la lignée des Karmapas."}
+], "capsEnd": 80.827, "total": 87.458};
 
 const stage = document.getElementById('stage');
 const capsWrap = document.getElementById('captions');
@@ -361,9 +373,6 @@ function fmt(t){
   return m+':'+s;
 }
 
-let startTime = null;
-let paused = false;
-let pausedAt = 0;
 let raf = null;
 let ended = false;
 
@@ -398,41 +407,38 @@ function render(t){
   }
 }
 
-function loop(now){
-  if(paused) return;
-  if(startTime===null) startTime = now - pausedAt*1000;
-  const t = (now - startTime)/1000;
+// L'audio est la seule horloge : le visuel se contente de suivre audio.currentTime.
+function loop(){
+  if(!audio || audio.paused) { raf = null; return; }
+  const t = audio.currentTime;
   render(t);
-  if(audio && !audio.paused){
-    // recale l'audio sur l'horloge visuelle si l'écart dépasse un seuil perceptible
-    if(Math.abs(audio.currentTime - t) > 0.15){
-      try{ audio.currentTime = Math.max(0, t); }catch(e){}
-    }
-  }
-  if(t < DATA.total + 1.5){
+  if(t < DATA.total){
     raf = requestAnimationFrame(loop);
-  } else if(audio){
+  } else {
+    ended = true;
     audio.pause();
   }
 }
 
 function play(){
-  paused = false;
-  raf = requestAnimationFrame(loop);
-  if(audio){
-    try{ audio.currentTime = Math.max(0, pausedAt); }catch(e){}
-    audio.play().catch(()=>{ /* lecture auto bloquée : reprise au premier clic */ });
-  }
+  if(!audio){ return; }
+  audio.play().then(()=>{
+    if(!raf) raf = requestAnimationFrame(loop);
+  }).catch(()=>{ /* lecture auto bloquée : reprise au premier clic sur la scène */ });
+}
+
+if(audio){
+  audio.addEventListener('play', ()=>{ if(!raf) raf = requestAnimationFrame(loop); });
+  audio.addEventListener('pause', ()=>{ if(raf) cancelAnimationFrame(raf); raf = null; });
+  audio.addEventListener('ended', ()=>{ ended = true; render(DATA.total); });
 }
 
 stage.addEventListener('click', ()=>{
-  if(!paused){
-    paused = true;
-    cancelAnimationFrame(raf);
-    pausedAt = (performance.now() - startTime)/1000;
-    if(audio) audio.pause();
-  } else if(pausedAt >= DATA.total){
-    startTime = null; pausedAt = 0; ended = false; lastCapIndex = -1;
+  if(!audio){ return; }
+  if(!audio.paused){
+    audio.pause();
+  } else if(ended || audio.currentTime >= DATA.total){
+    audio.currentTime = 0; ended = false; lastCapIndex = -1;
     play();
   } else {
     play();
