@@ -1,13 +1,13 @@
+
 <!doctype html>
 <html lang="fr">
 <head>
 <meta charset="utf-8">
-<title>Le Ier Karmapa, Dusoum Khyènpa (1110-1193) — Script voix off — Karmapa 900 ans</title>
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="description" content="Script voix off — Jour 8/10 — Le Ier Karmapa, Dusoum Khyènpa (1110-1193) — Karmapa 900 ans">
+<title>Le Ier Karmapa, Dusoum Khyènpa (1110-1193) — Karmapa 900 ans</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Marcellus&family=Noto+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Marcellus&family=Noto+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root{
     --bg1: #0a0f1a;
@@ -16,214 +16,413 @@
     --accent2: #f2d271;
     --ink: #f3ead2;
     --line: #33445c;
-    padding-top: env(safe-area-inset-top, 0px);
-    padding-bottom: env(safe-area-inset-bottom, 0px);
   }
   *{box-sizing:border-box; margin:0; padding:0;}
-  html{ scroll-behavior:smooth; }
-  body{
-    background: var(--bg1);
-    color: var(--ink);
+  audio{ display:none; }
+  html,body{
+    background:#000;
+    height:100%;
+    display:flex; align-items:center; justify-content:center;
     font-family:'Noto Sans', sans-serif;
-    -webkit-font-smoothing:antialiased;
   }
-
-  /* ---------- bannière héro ---------- */
-  .hero{
+  .stage{
     position:relative;
-    height:min(58vw, 480px);
-    min-height:280px;
+    width:1280px; height:720px;
+    max-width:100vw; max-height:100vh;
+    aspect-ratio:16/9;
     overflow:hidden;
     background: radial-gradient(120% 90% at 78% 18%, var(--bg2) 0%, var(--bg1) 62%);
+    cursor:pointer;
+    box-shadow:0 0 60px rgba(0,0,0,.6);
   }
-  .hero-photo{
+  /* ---------- fond animé (Ken Burns) ---------- */
+  .bg-layer{
     position:absolute; inset:-6%;
-    background-image:url('assets/himalaya-montagnes-brume.jpg');
-    background-size:cover; background-position:center;
-    animation: heroKen 26s ease-in-out infinite alternate;
-  }
-  @keyframes heroKen{
-    0%{ transform: scale(1.02) translate(0,0); }
-    100%{ transform: scale(1.12) translate(-1.5%, -1%); }
-  }
-  .hero-scrim{
-    position:absolute; inset:0;
     background:
-      linear-gradient(180deg, rgba(0,0,0,.15) 0%, rgba(0,0,0,.35) 55%, var(--bg1) 100%),
-      radial-gradient(120% 90% at 78% 14%, color-mix(in srgb, var(--bg2) 55%, transparent) 0%, transparent 60%);
+      radial-gradient(38% 46% at 50% 108%, color-mix(in srgb, var(--accent) 22%, transparent) 0%, transparent 70%),
+      radial-gradient(60% 60% at 88% -6%, color-mix(in srgb, var(--accent2) 16%, transparent) 0%, transparent 65%);
+    animation: kenburns 42s ease-in-out infinite alternate;
+    opacity:.9;
   }
-  .hero-grain{
+  .bg-vignette{
+    position:absolute; inset:0;
+    background: radial-gradient(120% 100% at 50% 50%, transparent 40%, rgba(0,0,0,.55) 100%);
+    pointer-events:none;
+  }
+  .bg-grain{
     position:absolute; inset:0; opacity:.05; mix-blend-mode:overlay; pointer-events:none;
     background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
   }
+  @keyframes kenburns{
+    0%{ transform: scale(1.04) translate(0,0); }
+    100%{ transform: scale(1.16) translate(-1.5%, -2%); }
+  }
+
+  /* ---------- photographies de fond (Ken Burns + fondu enchaîné) ---------- */
+  .photo-layer{
+    position:absolute; inset:-6%;
+    background-size:cover; background-position:center;
+    opacity:0; will-change:opacity, transform;
+  }
+  @keyframes kenburnsPhotoA{
+    0%{ transform: scale(1.05) translate(-0.5%, 0.5%); }
+    100%{ transform: scale(1.19) translate(-2.5%, -1.5%); }
+  }
+  @keyframes kenburnsPhotoB{
+    0%{ transform: scale(1.1) translate(1%, -0.5%); }
+    100%{ transform: scale(1.22) translate(-1%, 1.5%); }
+  }
+  .photo-scrim{
+    position:absolute; inset:0; pointer-events:none;
+    background:
+      linear-gradient(180deg, rgba(0,0,0,.18) 0%, rgba(0,0,0,.22) 34%, rgba(0,0,0,.62) 76%, rgba(0,0,0,.86) 100%),
+      radial-gradient(120% 90% at 78% 14%, color-mix(in srgb, var(--bg2) 60%, transparent) 0%, transparent 58%),
+      color-mix(in srgb, var(--bg1) 22%, transparent);
+  }
+  @keyframes fadeD8I0{0.000%{opacity:1}2.184%{opacity:1}97.816%{opacity:1}100.000%{opacity:1}}
+
+  /* ---------- motif ornemental (SVG dessiné à la main, original — discret) ---------- */
   .motif{
-    position:absolute; right:36px; bottom:26px; width:86px; height:86px;
-    opacity:.26; color:var(--accent2);
+    position:absolute; left:44px; bottom:100px; width:104px; height:104px;
+    opacity:.32; color:var(--accent2);
     animation: spin 220s linear infinite;
     filter: drop-shadow(0 2px 10px rgba(0,0,0,.5));
   }
   .motif svg{width:100%; height:100%; display:block;}
   @keyframes spin{ from{transform:rotate(0deg);} to{transform:rotate(360deg);} }
 
-  .hero-inner{
-    position:relative; z-index:2; height:100%;
-    max-width:760px; margin:0 auto; padding:0 24px;
-    display:flex; flex-direction:column; justify-content:flex-end;
-    padding-bottom:38px;
+  /* ---------- cadre & filigrane ---------- */
+  .frame{
+    position:absolute; inset:18px;
+    border:1px solid color-mix(in srgb, var(--line) 70%, transparent);
+    pointer-events:none;
   }
-  .hero-tib{ font-size:16px; color:var(--accent2); opacity:.8; margin-bottom:14px; letter-spacing:.06em;}
-  .hero-top{ display:flex; align-items:center; gap:16px; margin-bottom:16px; flex-wrap:wrap; }
+  .frame::before, .frame::after{
+    content:""; position:absolute; width:34px; height:34px;
+    border:1px solid var(--accent2);
+  }
+  .frame::before{ top:-1px; left:-1px; border-right:none; border-bottom:none; }
+  .frame::after{ bottom:-1px; right:-1px; border-left:none; border-top:none; }
+
   .kicker{
+    position:absolute; top:40px; left:56px;
     letter-spacing:.32em; text-transform:uppercase;
-    font-size:12px; color:var(--accent2); opacity:.9; font-weight:600;
+    font-size:13px; color:var(--accent2); opacity:.85;
+    font-weight:600;
   }
   .daycount{
-    font-family:'Marcellus', serif; font-size:13px; letter-spacing:.1em;
-    color:var(--ink); opacity:.78;
+    position:absolute; top:40px; right:56px;
+    font-family:'Marcellus', serif; font-size:15px; letter-spacing:.12em;
+    color:var(--ink); opacity:.75;
   }
   .daycount b{ color:var(--accent2); font-weight:400; }
-  .tag-script{
-    font-family:'Marcellus', serif; font-size:11px; letter-spacing:.14em; text-transform:uppercase;
-    color:var(--bg1); background:var(--accent2); padding:4px 11px; border-radius:999px;
+
+  .dots{
+    position:absolute; top:66px; right:56px;
+    display:flex; gap:6px;
   }
-  .hero-title{
+  .dots span{ width:6px; height:6px; border-radius:50%; background:color-mix(in srgb, var(--ink) 25%, transparent); }
+  .dots span.done{ background:var(--accent2); }
+  .dots span.now{ background:var(--accent2); box-shadow:0 0 0 3px color-mix(in srgb, var(--accent2) 30%, transparent); }
+
+  /* ---------- carte de titre ---------- */
+  .title-card{
+    position:absolute; inset:0; display:flex; flex-direction:column;
+    align-items:center; justify-content:center; text-align:center; padding:0 110px;
+    opacity:0; transform:translateY(14px) scale(.98);
+    transition:opacity .9s ease, transform .9s ease;
+  }
+  .title-card.active{ opacity:1; transform:translateY(0) scale(1); }
+  .title-tib{ font-size:22px; color:var(--accent2); opacity:.8; margin-bottom:18px; letter-spacing:.06em;}
+  .title-eyebrow{
+    font-size:15px; letter-spacing:.35em; text-transform:uppercase; color:var(--accent);
+    margin-bottom:22px;
+  }
+  .title-main{
     font-family:'Cormorant Garamond', serif; font-weight:600;
-    font-size:clamp(32px, 6vw, 54px); line-height:1.08; color:var(--ink);
-    text-shadow:0 2px 24px rgba(0,0,0,.5); text-wrap:balance;
+    font-size:64px; line-height:1.12; color:var(--ink);
+    text-shadow:0 2px 24px rgba(0,0,0,.5);
+  }
+  .title-rule{
+    width:120px; height:1px; background:linear-gradient(90deg, transparent, var(--accent2), transparent);
+    margin:28px auto;
+  }
+  .title-sub{ font-size:18px; color:var(--ink); opacity:.72; max-width:760px; }
+
+  /* ---------- sous-titres cinétiques ---------- */
+  .captions{
+    position:absolute; left:0; right:0; bottom:118px; padding:0 130px;
+    text-align:center;
+  }
+  .cap{
+    position:absolute; left:130px; right:130px; bottom:0;
+    font-family:'Cormorant Garamond', serif; font-weight:600;
+    font-size:38px; line-height:1.32; color:var(--ink);
+    opacity:0; transform:translateY(18px);
+    transition:opacity .55s ease, transform .55s ease;
+    text-shadow:0 2px 18px rgba(0,0,0,.55);
+  }
+  .cap.active{ opacity:1; transform:translateY(0); }
+  .cap .mark{ color:var(--accent2); font-size:.6em; vertical-align:middle; opacity:.85; }
+
+  /* ---------- barre de progression + minutage ---------- */
+  .progress-wrap{
+    position:absolute; left:56px; right:56px; bottom:56px;
+    display:flex; align-items:center; gap:14px;
+  }
+  .progress-track{ flex:1; height:2px; background:color-mix(in srgb, var(--ink) 18%, transparent); position:relative; border-radius:2px; overflow:hidden;}
+  .progress-fill{ position:absolute; inset:0 auto 0 0; width:0%; background:var(--accent2); }
+  .timecode{ font-size:12px; color:var(--ink); opacity:.6; font-variant-numeric:tabular-nums; letter-spacing:.04em; min-width:78px; text-align:right;}
+
+  /* ---------- carte de fin / teaser ---------- */
+  .end-card{
+    position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center;
+    text-align:center; padding:0 120px; opacity:0; pointer-events:none;
+    transition:opacity 1s ease;
+  }
+  .end-card.active{ opacity:1; pointer-events:auto; }
+  .end-eyebrow{ font-size:14px; letter-spacing:.3em; text-transform:uppercase; color:var(--accent); margin-bottom:20px;}
+  .end-main{ font-family:'Cormorant Garamond', serif; font-size:34px; color:var(--ink); line-height:1.4; max-width:760px;}
+  .end-next{ margin-top:26px; font-family:'Marcellus', serif; font-size:22px; color:var(--accent2);}
+  .replay{
+    margin-top:38px; font-size:13px; letter-spacing:.14em; text-transform:uppercase;
+    color:var(--ink); opacity:.55; border:1px solid color-mix(in srgb, var(--ink) 30%, transparent);
+    padding:10px 22px; border-radius:999px;
   }
 
-  /* ---------- corps de lecture ---------- */
-  .wrap{ max-width:700px; margin:0 auto; padding:44px 24px 80px; }
+  .skip-hint{
+    position:absolute; bottom:84px; left:0; right:0; text-align:center;
+    font-size:11px; letter-spacing:.08em; color:var(--ink); opacity:0; transition:opacity .4s;
+  }
+  .stage:hover .skip-hint{ opacity:.4; }
 
-  .meta-bar{
-    display:flex; align-items:center; gap:10px; flex-wrap:wrap;
-    font-size:13px; color:var(--ink); opacity:.62; letter-spacing:.02em;
-    margin-bottom:36px; padding-bottom:24px; border-bottom:1px solid color-mix(in srgb, var(--line) 70%, transparent);
+  /* ---------- petit bonhomme (compagnon pixel-art) ---------- */
+  .mascot{
+    position:absolute; left:50%; top:25%; width:160px;
+    transform:translate(-50%,-50%);
+    opacity:0; transition:opacity .7s ease;
+    pointer-events:none;
+    animation: mascotBob 2.8s ease-in-out infinite;
+    filter: drop-shadow(0 10px 14px rgba(0,0,0,.45));
   }
-  .meta-bar .sep{ opacity:.5; }
-  .meta-bar b{ color:var(--accent2); font-weight:600; opacity:1; }
-
-  .script{
-    font-family:'Cormorant Garamond', serif;
-    font-size:clamp(21px, 2.6vw, 25px);
-    line-height:1.62;
-    color:var(--ink);
+  .mascot.visible{ opacity:1; }
+  .mascot-inner{ width:100%; }
+  .mascot-inner.pulse{ animation: mascotPulse .6s ease-out; }
+  .mascot svg{ width:100%; height:auto; display:block; shape-rendering:crispEdges; }
+  .mascot .m-body{ fill:var(--accent); }
+  .mascot .m-eye{ fill:var(--bg1); animation: mascotBlink 5.4s ease-in-out infinite; }
+  .mascot .m-eye.right{ animation-delay:.03s; }
+  @keyframes mascotBob{
+    0%,100%{ transform: translate(-50%,-50%) translateY(0); }
+    50%{ transform: translate(-50%,-50%) translateY(-7px); }
   }
-  .script p{ margin-bottom:1.5em; }
-  .script p:first-of-type::first-letter{
-    font-size:3.1em; line-height:.82; float:left; padding:.05em .09em 0 0;
-    color:var(--accent2); font-weight:600;
+  @keyframes mascotPulse{
+    0%{ transform: scale(1) rotate(0deg); }
+    32%{ transform: scale(1.1) rotate(-4deg); }
+    64%{ transform: scale(1.04) rotate(3deg); }
+    100%{ transform: scale(1) rotate(0deg); }
   }
-  .script .mark{ color:var(--accent2); opacity:.75; padding:0 .1em; font-size:.75em; vertical-align:middle; }
-
-  .teaser-box{
-    margin-top:44px; padding:26px 28px; border-radius:14px;
-    background: color-mix(in srgb, var(--bg2) 55%, transparent);
-    border:1px solid color-mix(in srgb, var(--line) 80%, transparent);
-    position:relative;
-  }
-  .teaser-eyebrow{
-    font-family:'Marcellus', serif; font-size:11px; letter-spacing:.24em; text-transform:uppercase;
-    color:var(--accent); margin-bottom:10px;
-  }
-  .teaser-text{
-    font-family:'Cormorant Garamond', serif; font-style:italic; font-weight:500;
-    font-size:20px; line-height:1.5; color:var(--ink); opacity:.92;
+  @keyframes mascotBlink{
+    0%, 90%, 100%{ opacity:1; }
+    93%, 96%{ opacity:0; }
   }
 
-  /* ---------- navigation ---------- */
-  .nav-links{
-    display:flex; flex-wrap:wrap; gap:10px; margin-top:44px;
-  }
-  .nav-links a{
-    font-family:'Marcellus', serif; font-size:12px; letter-spacing:.08em; text-transform:uppercase;
-    color:var(--ink); text-decoration:none; border:1px solid var(--line); border-radius:999px;
-    padding:11px 20px; white-space:nowrap; transition:border-color .2s, color .2s, background .2s;
-    display:inline-flex; align-items:center; gap:8px;
-  }
-  .nav-links a:hover{ border-color:var(--accent2); color:var(--accent2); }
-  .nav-links a.primary{ background:var(--accent2); color:var(--bg1); border-color:var(--accent2); }
-  .nav-links a.primary:hover{ opacity:.88; color:var(--bg1); }
-
-  .daynav{
-    display:flex; justify-content:space-between; gap:16px; margin-top:20px;
-    padding-top:20px; border-top:1px solid color-mix(in srgb, var(--line) 70%, transparent);
-  }
-  .daynav a{
-    flex:1; text-decoration:none; color:var(--ink); opacity:.7;
-    font-size:13px; line-height:1.4; transition:opacity .2s;
-    display:flex; flex-direction:column; gap:4px;
-  }
-  .daynav a:hover{ opacity:1; }
-  .daynav a.next{ text-align:right; align-items:flex-end; }
-  .daynav .lbl{ font-family:'Marcellus', serif; font-size:10.5px; letter-spacing:.18em; text-transform:uppercase; color:var(--accent2); }
-  .daynav .ttl{ font-family:'Cormorant Garamond', serif; font-size:17px; font-weight:600; color:var(--ink); }
-  .daynav .spacer{ flex:none; width:1px; }
-
-  footer{ margin-top:56px; color:var(--ink); opacity:.5; font-size:12.5px; line-height:1.7; text-align:center; }
-
-  @media (prefers-color-scheme: light){
-    :root:not([data-theme="dark"]){ }
+  @media (max-width:900px){
+    .title-main{font-size:44px;}
+    .cap{font-size:28px; left:60px; right:60px;}
+    .captions{padding:0 60px;}
   }
 </style>
 </head>
 <body>
-
-<div class="hero">
-  <div class="hero-photo"></div>
-  <div class="hero-scrim"></div>
-  <div class="hero-grain"></div>
-  <div class="motif"><svg viewBox="0 0 200 200" fill="none" stroke="currentColor" stroke-width="1.1">
+<div class="stage" id="stage" title="Cliquer pour rejouer / mettre en pause">
+  <audio id="voice" src="jour-08-la-vie-du-bouddha.mp3" preload="auto"></audio>
+  <div class="bg-layer"></div>
+  <div class="photo-layer" style="background-image:url('assets/himalaya-montagnes-brume.jpg'); animation: fadeD8I0 82.42s linear infinite, kenburnsPhotoA 111.27s ease-in-out infinite alternate;"></div>
+  <div class="photo-scrim"></div>
+  <div class="bg-grain"></div>
+  <div class="motif" id="motif"><svg viewBox="0 0 200 200" fill="none" stroke="currentColor" stroke-width="1.1">
 <path d="M40 150 L48 92 L78 118 L100 70 L122 118 L152 92 L160 150 Z" stroke-linejoin="round" stroke-linecap="round"/>
 <path d="M40 150 L160 150 L155 168 L45 168 Z" stroke-linejoin="round"/>
 <circle cx="100" cy="70" r="5"/>
 <line x1="45" y1="180" x2="155" y2="180" stroke-opacity=".4"/>
 </svg></div>
-  <div class="hero-inner">
-    <div class="hero-tib">༄༅ ཀརྨ་པ ༅༄</div>
-    <div class="hero-top">
-      <span class="kicker">KARMAPA · 900 ANS</span>
-      <span class="daycount">JOUR <b>08</b> / 10</span>
-      <span class="tag-script">Script voix off</span>
-    </div>
-    <div class="hero-title">Le Ier Karmapa, Dusoum Khyènpa (1110-1193)</div>
+  <div class="bg-vignette"></div>
+  <div class="frame"></div>
+  <div class="mascot" id="mascot">
+  <div class="mascot-inner">
+    <svg viewBox="0 0 70 49" xmlns="http://www.w3.org/2000/svg">
+      <rect class="m-body" x="24" y="24" width="25" height="6"/>
+      <rect class="m-body" x="18" y="30" width="37" height="7"/>
+      <rect class="m-body" x="24" y="37" width="25" height="5"/>
+      <rect class="m-body" x="24" y="42" width="4" height="5"/>
+      <rect class="m-body" x="30" y="42" width="4" height="5"/>
+      <rect class="m-body" x="40" y="42" width="3" height="5"/>
+      <rect class="m-body" x="45" y="42" width="4" height="5"/>
+      <rect class="m-eye left" x="28" y="28" width="2" height="2"/>
+      <rect class="m-eye right" x="42" y="28" width="3" height="2"/>
+    </svg>
   </div>
 </div>
 
-<div class="wrap">
-  <div class="meta-bar">
-    <span><b>185</b> mots</span>
-    <span class="sep">·</span>
-    <span>environ <b>1 min 19</b> à 140 mots/min</span>
-    <span class="sep">·</span>
-    <span>français</span>
+  <div class="kicker">KARMAPA · 900 ANS</div>
+  <div class="daycount">JOUR <b>08</b> / 10</div>
+  <div class="dots" id="dots"></div>
+
+  <div class="title-card" id="titleCard">
+    <div class="title-tib">༄༅ ཀརྨ་པ ༅༄</div>
+    <div class="title-eyebrow">KARMAPA · 900 ANS &nbsp;—&nbsp; Jour 8</div>
+    <div class="title-main">Le Ier Karmapa, Dusoum Khyènpa (1110-1193)</div>
+    <div class="title-rule"></div>
+    <div class="title-sub">Karmapa 900 ans — série d'animations quotidiennes</div>
   </div>
 
-  <div class="script">
-    <p>Il y a neuf cents ans, en 1110, naît au Tibet oriental un enfant nommé Dusoum Khyènpa — futur premier Karmapa. Parti étudier au Tibet central, il devient l'ami puis le disciple du grand Gampopa, auprès de qui il pratique avec une intensité telle que ses mains restent moites de sueur pendant neuf mois de retraite ininterrompue.</p>
-    <p>Lors de son ordination, il reçoit une vision : le Bouddha lui-même lui présente une coiffe noire. Il en façonne plus tard une réplique matérielle — la première coiffe des Karmapas. En 1164, il fonde le monastère de Kampo Nénang ; en 1189, celui de Tsourpou, qui restera pour neuf siècles le siège principal de la lignée.</p>
-    <p>Mais son geste le plus révolutionnaire reste à venir : avant sa mort, il laisse à son disciple une lettre décrivant précisément les circonstances de sa prochaine naissance. Il invente ainsi la réincarnation volontaire et reconnaissable — fondement du système des lamas réincarnés au Tibet, du Karmapa au Dalaï-Lama. En 1193, à quatre-vingt-quatre ans, il donne un dernier enseignement à Tsourpou, lève les yeux vers le ciel, et s'éteint.</p>
-    <p>Il reviendra.</p>
+  <div class="captions" id="captions"><div class="cap" id="cap-0"><span class="mark">✦</span> Il y a neuf cents ans, en 1110, naît au Tibet oriental un enfant nommé Dusoum Khyènpa — futur premier Karmapa.</div>
+<div class="cap" id="cap-1"><span class="mark">✦</span> Parti étudier au Tibet central, il devient l'ami puis le disciple du grand Gampopa,</div>
+<div class="cap" id="cap-2"><span class="mark">✦</span> auprès de qui il pratique avec une intensité telle que ses mains restent moites de sueur pendant neuf mois de retraite ininterrompue.</div>
+<div class="cap" id="cap-3"><span class="mark">✦</span> Lors de son ordination, il reçoit une vision : le Bouddha lui-même lui présente une coiffe noire.</div>
+<div class="cap" id="cap-4"><span class="mark">✦</span> Il en façonne plus tard une réplique matérielle — la première coiffe des Karmapas.</div>
+<div class="cap" id="cap-5"><span class="mark">✦</span> En 1164, il fonde le monastère de Kampo Nénang ; en 1189, celui de Tsourpou, qui restera pour neuf siècles le siège principal de la lignée.</div>
+<div class="cap" id="cap-6"><span class="mark">✦</span> Mais son geste le plus révolutionnaire reste à venir : avant sa mort, il laisse à son disciple une lettre décrivant précisément les circonstances de sa prochaine naissance.</div>
+<div class="cap" id="cap-7"><span class="mark">✦</span> Il invente ainsi la réincarnation volontaire et reconnaissable — fondement du système des lamas réincarnés au Tibet, du Karmapa au Dalaï-Lama.</div>
+<div class="cap" id="cap-8"><span class="mark">✦</span> En 1193, à quatre-vingt-quatre ans, il donne un dernier enseignement à Tsourpou, lève les yeux vers le ciel, et s'éteint.</div>
+<div class="cap" id="cap-9"><span class="mark">✦</span> Il reviendra.</div></div>
+
+  <div class="end-card" id="endCard">
+    <div class="end-eyebrow">KARMAPA · 900 ANS</div>
+    <div class="end-main">Demain : neuf vies, une seule flamme, à travers neuf siècles.</div>
+    <div class="end-next">Demain — Du IIe au XVe Karmapa</div>
+    <div class="replay">↺ rejouer</div>
   </div>
 
-  <div class="teaser-box">
-    <div class="teaser-eyebrow">Accroche du lendemain</div>
-    <div class="teaser-text">Demain : neuf vies, une seule flamme, à travers neuf siècles.</div>
+  <div class="progress-wrap">
+    <div class="progress-track"><div class="progress-fill" id="fill"></div></div>
+    <div class="timecode" id="timecode">00:00 / 00:00</div>
   </div>
-
-  <div class="nav-links">
-    <a href="index.html">← Sommaire</a>
-    <a class="primary" href="jour-08-le-ier-karmapa-dusoum-khyenpa-1110-1193.html">▶ Voir l'animation</a>
-    <a href="jour-08-le-ier-karmapa-dusoum-khyenpa-1110-1193-voix-off.txt">Télécharger le .txt</a>
-  </div>
-
-  <div class="daynav">
-    <a class="prev" href="jour-07-le-seigneur-gampopa-1079-1153-script.html"><span class="lbl">← Jour 07</span><span class="ttl">Le Seigneur Gampopa (1079-1153)</span></a>
-    <a class="next" href="jour-09-du-iie-au-xve-karmapa-script.html"><span class="lbl">Jour 09 →</span><span class="ttl">Du IIe au XVe Karmapa</span></a>
-  </div>
-
-  <footer>Karmapa 900 ans — série de dix jours, d'après l'ouvrage <i>Karmapa&nbsp;: 900 ans</i>.</footer>
+  <div class="skip-hint">clic = pause / lecture</div>
 </div>
 
+<script>
+const DATA = {"day": 8, "dayTotal": 10, "titleEnd": 0.100, "cues": [
+{"start": 0.100, "end": 11.124, "text": "Il y a neuf cents ans, en 1110, naît au Tibet oriental un enfant nommé Dusoum Khyènpa — futur premier Karmapa."},
+{"start": 11.124, "end": 17.500, "text": "Parti étudier au Tibet central, il devient l'ami puis le disciple du grand Gampopa,"},
+{"start": 17.500, "end": 26.256, "text": "auprès de qui il pratique avec une intensité telle que ses mains restent moites de sueur pendant neuf mois de retraite ininterrompue."},
+{"start": 26.727, "end": 32.472, "text": "Lors de son ordination, il reçoit une vision : le Bouddha lui-même lui présente une coiffe noire."},
+{"start": 33.019, "end": 38.109, "text": "Il en façonne plus tard une réplique matérielle — la première coiffe des Karmapas."},
+{"start": 38.484, "end": 51.375, "text": "En 1164, il fonde le monastère de Kampo Nénang ; en 1189, celui de Tsourpou, qui restera pour neuf siècles le siège principal de la lignée."},
+{"start": 52.385, "end": 63.536, "text": "Mais son geste le plus révolutionnaire reste à venir : avant sa mort, il laisse à son disciple une lettre décrivant précisément les circonstances de sa prochaine naissance."},
+{"start": 63.988, "end": 74.478, "text": "Il invente ainsi la réincarnation volontaire et reconnaissable — fondement du système des lamas réincarnés au Tibet, du Karmapa au Dalaï-Lama."},
+{"start": 74.968, "end": 83.217, "text": "En 1193, à quatre-vingt-quatre ans, il donne un dernier enseignement à Tsourpou, lève les yeux vers le ciel, et s'éteint."},
+{"start": 83.955, "end": 84.647, "text": "Il reviendra."}
+], "capsEnd": 84.647, "total": 85.499};
+
+const stage = document.getElementById('stage');
+const capsWrap = document.getElementById('captions');
+const capEls = Array.from(capsWrap.querySelectorAll('.cap'));
+const titleCard = document.getElementById('titleCard');
+const endCard = document.getElementById('endCard');
+const fill = document.getElementById('fill');
+const timecode = document.getElementById('timecode');
+const dotsWrap = document.getElementById('dots');
+const audio = document.getElementById('voice');
+const mascot = document.getElementById('mascot');
+const mascotInner = mascot ? mascot.querySelector('.mascot-inner') : null;
+let lastCapIndex = -1;
+
+function triggerMascotPulse(){
+  if(!mascotInner) return;
+  mascotInner.classList.remove('pulse');
+  void mascotInner.offsetWidth; // force reflow pour rejouer l'animation
+  mascotInner.classList.add('pulse');
+}
+
+DATA.cues.forEach(()=>{
+  const d = document.createElement('span');
+  dotsWrap.appendChild(d);
+});
+const dotEls = Array.from(dotsWrap.children);
+
+function fmt(t){
+  t = Math.max(0,t);
+  const m = Math.floor(t/60).toString().padStart(2,'0');
+  const s = Math.floor(t%60).toString().padStart(2,'0');
+  return m+':'+s;
+}
+
+let raf = null;
+let ended = false;
+
+function activeIndexAt(t){
+  if(t < DATA.titleEnd) return {type:'title'};
+  if(t >= DATA.capsEnd) return {type:'end'};
+  for(let i=0;i<DATA.cues.length;i++){
+    const c = DATA.cues[i];
+    if(t>=c.start && t<c.end) return {type:'cap', i};
+  }
+  return {type:'gap'};
+}
+
+function render(t){
+  const state = activeIndexAt(t);
+  titleCard.classList.toggle('active', state.type==='title');
+  endCard.classList.toggle('active', state.type==='end');
+  capEls.forEach((el,i)=> el.classList.toggle('active', state.type==='cap' && state.i===i));
+  dotEls.forEach((el,i)=>{
+    el.classList.toggle('now', state.type==='cap' && state.i===i);
+    el.classList.toggle('done', state.type!=='title' && (state.type==='end' || (state.type==='cap' && i<state.i) || (state.type==='gap')));
+  });
+  fill.style.width = Math.min(100, (t/DATA.total)*100) + '%';
+  timecode.textContent = fmt(t) + ' / ' + fmt(DATA.total);
+  if(state.type==='end' && !ended){ ended = true; }
+
+  if(mascot){
+    mascot.classList.toggle('visible', state.type==='cap' || state.type==='gap');
+    const idx = state.type==='cap' ? state.i : -1;
+    if(idx !== -1 && idx !== lastCapIndex){ triggerMascotPulse(); }
+    lastCapIndex = idx;
+  }
+}
+
+// L'audio est la seule horloge : le visuel se contente de suivre audio.currentTime.
+function loop(){
+  if(!audio || audio.paused) { raf = null; return; }
+  const t = audio.currentTime;
+  render(t);
+  if(t < DATA.total){
+    raf = requestAnimationFrame(loop);
+  } else {
+    ended = true;
+    audio.pause();
+  }
+}
+
+function play(){
+  if(!audio){ return; }
+  audio.play().then(()=>{
+    if(!raf) raf = requestAnimationFrame(loop);
+  }).catch(()=>{ /* lecture auto bloquée : reprise au premier clic sur la scène */ });
+}
+
+if(audio){
+  audio.addEventListener('play', ()=>{ if(!raf) raf = requestAnimationFrame(loop); });
+  audio.addEventListener('pause', ()=>{ if(raf) cancelAnimationFrame(raf); raf = null; });
+  audio.addEventListener('ended', ()=>{ ended = true; render(DATA.total); });
+}
+
+stage.addEventListener('click', ()=>{
+  if(!audio){ return; }
+  if(!audio.paused){
+    audio.pause();
+  } else if(ended || audio.currentTime >= DATA.total){
+    audio.currentTime = 0; ended = false; lastCapIndex = -1;
+    play();
+  } else {
+    play();
+  }
+});
+
+render(0);
+play();
+</script>
 </body>
 </html>
